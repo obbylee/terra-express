@@ -1,0 +1,9 @@
+services:
+  database:
+    container_name: terra_express_api
+    image: postgres:alpine
+    ports:
+      - '5432:5432'
+    env_file:
+      - path: .env
+        required: true
