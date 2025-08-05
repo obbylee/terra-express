@@ -26,6 +26,13 @@ app.get("/", (req, res) => {
   res.json({ message: "Hello from TypeScript Express!" });
 });
 
+app.use((req, res) => {
+  res.status(404).json({
+    error: "Route not found",
+    message: `The requested path '${req.originalUrl}' does not exist.`,
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
   console.log(`Node Environment: ${process.env.NODE_ENV}`);

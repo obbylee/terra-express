@@ -1,5 +1,5 @@
 {
-  "id": "5cf1dd26-fed9-417a-bd5b-fcbf9aba2898",
+  "id": "15184afd-c77b-44e5-9ad7-8459a1c03ba7",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -17,7 +17,7 @@
         },
         "name": {
           "name": "name",
-          "type": "text",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
@@ -71,7 +71,7 @@
         },
         "name": {
           "name": "name",
-          "type": "text",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
@@ -125,7 +125,7 @@
         },
         "name": {
           "name": "name",
-          "type": "text",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
@@ -139,14 +139,14 @@
           "name": "alternateNames",
           "type": "text[]",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "'{}'::text[]"
         },
         "activities": {
           "name": "activities",
           "type": "text[]",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "'{}'::text[]"
         },
         "descriptions": {
@@ -171,38 +171,34 @@
           "name": "operatingHours",
           "type": "jsonb",
           "primaryKey": false,
-          "notNull": false,
-          "default": "'{}'::jsonb"
+          "notNull": false
         },
         "entranceFee": {
           "name": "entranceFee",
           "type": "jsonb",
           "primaryKey": false,
-          "notNull": false,
-          "default": "'{}'::jsonb"
+          "notNull": false
         },
         "contactInfo": {
           "name": "contactInfo",
           "type": "jsonb",
           "primaryKey": false,
-          "notNull": false,
-          "default": "'{}'::jsonb"
+          "notNull": false
         },
         "accessibility": {
           "name": "accessibility",
           "type": "jsonb",
           "primaryKey": false,
-          "notNull": false,
-          "default": "'{}'::jsonb"
+          "notNull": false
         },
-        "submittedBy": {
-          "name": "submittedBy",
+        "submitted_by": {
+          "name": "submitted_by",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
         },
-        "typeId": {
-          "name": "typeId",
+        "type_id": {
+          "name": "type_id",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
@@ -224,12 +220,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "space_submittedBy_users_id_fk": {
-          "name": "space_submittedBy_users_id_fk",
+        "space_submitted_by_users_id_fk": {
+          "name": "space_submitted_by_users_id_fk",
           "tableFrom": "space",
           "tableTo": "users",
           "columnsFrom": [
-            "submittedBy"
+            "submitted_by"
           ],
           "columnsTo": [
             "id"
@@ -237,12 +233,12 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "space_typeId_space_type_id_fk": {
-          "name": "space_typeId_space_type_id_fk",
+        "space_type_id_space_type_id_fk": {
+          "name": "space_type_id_space_type_id_fk",
           "tableFrom": "space",
           "tableTo": "space_type",
           "columnsFrom": [
-            "typeId"
+            "type_id"
           ],
           "columnsTo": [
             "id"
@@ -271,13 +267,13 @@
       "columns": {
         "space_id": {
           "name": "space_id",
-          "type": "text",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": true
         },
         "category_id": {
           "name": "category_id",
-          "type": "text",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": true
         }
@@ -331,13 +327,13 @@
       "columns": {
         "space_id": {
           "name": "space_id",
-          "type": "text",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": true
         },
         "feature_id": {
           "name": "feature_id",
-          "type": "text",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": true
         }
@@ -398,7 +394,7 @@
         },
         "name": {
           "name": "name",
-          "type": "text",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
@@ -459,6 +455,12 @@
         "email": {
           "name": "email",
           "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "passwordHash": {
+          "name": "passwordHash",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },

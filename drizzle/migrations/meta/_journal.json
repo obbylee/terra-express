@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1753863850323,
-      "tag": "0000_cultured_nicolaos",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1753863944153,
-      "tag": "0001_legal_loners",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1754038048939,
-      "tag": "0002_mixed_betty_ross",
+      "when": 1754191811436,
+      "tag": "0000_minor_shaman",
       "breakpoints": true
     }
   ]
