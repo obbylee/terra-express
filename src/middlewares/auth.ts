@@ -38,7 +38,7 @@ export const isAuthenticated = async (
       userId: string;
       email: string;
     } | null = validateToken(token);
-    console.log(payload);
+
     if (!payload) {
       throw new Error("Invalid token payload structure.");
     }

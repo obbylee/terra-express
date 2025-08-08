@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm";
+import { sql, relations } from "drizzle-orm";
 import {
   pgTable,
   primaryKey,
@@ -117,4 +117,73 @@ export const spaceToCategories = pgTable(
       .references(() => category.id, { onDelete: "cascade" }),
   },
   (table) => [primaryKey({ columns: [table.spaceId, table.categoryId] })],
+);
+
+export const spaceRelations = relations(space, ({ one, many }) => ({
+  // 'one' means a space belongs to one user.
+  // The field name 'submittedBy' is what you use in your query's '.with' clause.
+  submittedBy: one(usersTable, {
+    fields: [space.submittedBy],
+    references: [usersTable.id],
+  }),
+
+  // 'one' means a space belongs to one spaceType.
+  // The field name 'type' is what you use in your query's '.with' clause.
+  spaceType: one(spaceType, {
+    fields: [space.typeId],
+    references: [spaceType.id],
+  }),
+
+  categories: many(spaceToCategories),
+  features: many(spaceToFeatures),
+}));
+
+export const usersRelations = relations(usersTable, ({ many }) => ({
+  // 'many' means a user can submit many spaces.
+  submittedSpaces: many(space),
+}));
+
+export const spaceTypeRelations = relations(spaceType, ({ many }) => ({
+  // 'many' means a space type can be used for many spaces.
+  spaces: many(space),
+}));
+
+export const categoryRelations = relations(category, ({ many }) => {
+  return { spaceToCategories: many(spaceToCategories) };
+});
+
+export const featureRelations = relations(feature, ({ many }) => {
+  return { spaceToFeatures: many(spaceToFeatures) };
+});
+
+export const spaceToCategoriesRelations = relations(
+  spaceToCategories,
+  ({ one }) => {
+    return {
+      category: one(category, {
+        fields: [spaceToCategories.categoryId],
+        references: [category.id],
+      }),
+      space: one(space, {
+        fields: [spaceToCategories.spaceId],
+        references: [space.id],
+      }),
+    };
+  },
+);
+
+export const spaceToFeaturesRelations = relations(
+  spaceToFeatures,
+  ({ one }) => {
+    return {
+      feature: one(feature, {
+        fields: [spaceToFeatures.featureId],
+        references: [feature.id],
+      }),
+      space: one(space, {
+        fields: [spaceToFeatures.spaceId],
+        references: [space.id],
+      }),
+    };
+  },
 );
